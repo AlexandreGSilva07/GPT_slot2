@@ -183,7 +183,7 @@ const experts = [
     variables: [
       V('constraint_diet','CONSTRAINT','NO_DAIRY',['sem leite','sem lactose','sem laticinios','sem laticínios'],['diet']),
       V('constraint_diet','CONSTRAINT','NO_MEAT',['sem carne','vegetariano'],['diet']),
-      V('constraint_diet','CONSTRAINT','NO_OVEN',['sem forno'],['equipment']),
+      V('constraint_diet','CONSTRAINT','NO_OVEN',['sem forno','nao quero usar forno','não quero usar forno','nao quero forno','não quero forno'],['equipment']),
       V('constraint_diet','CONSTRAINT','NO_FRIED',['sem fritura','nao fritar','não fritar'],['method']),
       V('constraint_diet','CONSTRAINT','PLANT_ONLY',['vegano','somente vegetal'],['diet'])
     ]
