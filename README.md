@@ -1,38 +1,42 @@
-# GPT_slot2
+# GPT_slot2 · Runtime VibeCoder Lab V4
 
-Repositório público de publicação do **Runtime Expert Lab V3**.
+Branch experimental: `v4-vibecoder-html-js-css`.
 
-O site é totalmente estático (HTML, CSS e JavaScript) e foi preparado para publicação via GitHub Pages.
+Esta linha de pesquisa substitui o domínio financeiro por um **vibe coder procedural para HTML + JavaScript puro, com CSS auxiliar**. O motor não gera código token a token com um LLM em runtime: ele interpreta o pedido, seleciona microcompetências compatíveis, compõe um pequeno programa de edição e aplica esse programa ao projeto atual.
 
+## Escopo V4.0
+
+- HTML estático
+- JavaScript client-side sem frameworks
+- CSS
+- edição de texto e atributos
+- classes e visibilidade
+- criação e remoção de elementos
+- eventos de clique
+- regras CSS
+- prompts compostos em múltiplas etapas
+- preview no navegador
+- trace da busca e do expert temporário
+
+## Benchmark interno
+
+`vibe_benchmark_500.js` gera exatamente **500 casos**, divididos em 10 famílias com 50 casos cada. O teste de linha de comando é:
+
+```bash
+npm test
+```
+
+Na versão atual, o benchmark interno fecha em **500/500**. Ele é um benchmark gerado pela própria gramática do projeto e deve ser tratado como teste de regressão/cobertura, não como prova de generalização para linguagem aberta.
+
+## Arquivos principais
+
+- `vibe_engine.js` — motor procedural e microcompetências
+- `vibe_benchmark_500.js` — benchmark interno de 500 casos
+- `test_vibe.mjs` — gate de 500/500
+- `index.html` — laboratório web
+- `app.js` — interface, preview e benchmark no navegador
+- `styles.css` — interface
 
 ## Licença
 
-Este repositório é público, mas o código permanece **proprietário e source-available**.
-
-A publicação no GitHub não concede permissão geral para copiar, modificar, redistribuir, hospedar, implantar, comercializar ou criar trabalhos derivados. Qualquer uso além de visualização e avaliação requer autorização prévia e por escrito do titular dos direitos, ressalvadas as permissões necessárias ao funcionamento dos recursos do GitHub conforme os Termos de Serviço da plataforma.
-
-Consulte o arquivo [LICENSE](./LICENSE) para os termos completos.
-
-**Este projeto não é open source.**
-
-
-## Runtime Expert Lab V3
-
-Artefatos públicos de execução incluídos:
-
-- `index.html`
-- `styles.css`
-- `app.js`
-- `engine_v3.js`
-- `world_model.js`
-- `world_parser.js`
-- `world_planner.js`
-- `benchmark.js`
-- `benchmark.example.json`
-- `hard_business_1200_blind6.js`
-
-A raiz contém também `.nojekyll`, portanto o repositório está pronto para ser usado como fonte estática do GitHub Pages.
-
-Após habilitar **Settings → Pages → Deploy from a branch → main / (root)**, o endereço padrão será:
-
-`https://alexandregsilva07.github.io/GPT_slot2/`
+Este repositório é público, mas o código permanece **proprietário e source-available**. Consulte `LICENSE`.
