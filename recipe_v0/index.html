@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Recipe V0</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f5f5f5;color:#181818;font:16px system-ui,sans-serif}
+    main{max-width:900px;margin:40px auto;padding:0 16px}.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:20px;margin-bottom:14px}
+    textarea{width:100%;min-height:110px;padding:12px;border:1px solid #bbb;border-radius:8px;font:inherit;resize:vertical}
+    button{margin-top:10px;padding:10px 16px;border:0;border-radius:8px;background:#111;color:#fff;font-weight:700;cursor:pointer}
+    pre{white-space:pre-wrap;overflow:auto;background:#111;color:#eee;padding:14px;border-radius:8px}
+    .muted{color:#666}.ok{font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+    .slot{padding:10px;border:1px solid #ddd;border-radius:8px;background:#fafafa}.slot small{display:block;color:#777}
+  </style>
+</head>
+<body>
+<main>
+  <section class="card">
+    <h1>Motor combinatório de receitas · V0</h1>
+    <p class="muted">Digite um pedido em linguagem natural. O motor resolve conceitos, abre experts, aplica constraints e materializa uma resposta.</p>
+    <textarea id="prompt">Tenho frango, batata e tomate, não quero usar forno e preciso fazer algo rápido.</textarea>
+    <button id="run">Resolver</button>
+  </section>
+
+  <section class="card">
+    <h2>Resposta</h2>
+    <div id="answer"></div>
+  </section>
+
+  <section class="card">
+    <h2>Estado resolvido</h2>
+    <div id="state" class="grid"></div>
+  </section>
+
+  <section class="card">
+    <h2>Trace</h2>
+    <pre id="trace"></pre>
+  </section>
+</main>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
