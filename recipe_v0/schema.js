@@ -304,3 +304,50 @@ export function registryStats(registry) {
     averageVariablesPerExpert: variables.length / Math.max(1, experts.length)
   };
 }
+
+function chooseBigInt(n, k) {
+  if (k < 0 || k > n) return 0n;
+  let result = 1n;
+  const kk = Math.min(k, n - k);
+  for (let i = 1; i <= kk; i++) {
+    result = result * BigInt(n - kk + i) / BigInt(i);
+  }
+  return result;
+}
+
+export function slotCapacity(registry, slotId) {
+  const slot = registry.slots.get(slotId);
+  assert(slot, `Unknown slot: ${slotId}`);
+  const experts = [...registry.experts.values()].filter(expert =>
+    expert.slotTypes.includes(slot.type) &&
+    (!slot.acceptsExperts || slot.acceptsExperts.includes(expert.id))
+  );
+  const n = experts.reduce((sum, expert) => sum + expert.variables.length, 0);
+  if (n === 0) return slot.required ? 0n : 1n;
+
+  if (!slot.multi) return BigInt(n + (slot.required ? 0 : 1));
+
+  const max = Math.min(Number.isFinite(slot.maxItems) ? slot.maxItems : n, n);
+  let total = slot.required ? 0n : 1n;
+  for (let k = 1; k <= max; k++) total += chooseBigInt(n, k);
+  return total;
+}
+
+export function estimateCategoricalCapacity(registry, slotIds = null) {
+  const ids = slotIds ?? [...registry.slots.keys()];
+  let total = 1n;
+  const perSlot = {};
+  for (const id of ids) {
+    const capacity = slotCapacity(registry, id);
+    // Parameter slots deliberately have zero catalog variables; they are runtime values,
+    // so they are excluded from the categorical product rather than pretending to be enumerated.
+    const slot = registry.slots.get(id);
+    if (slot?.type === 'PARAMETER') {
+      perSlot[id] = null;
+      continue;
+    }
+    perSlot[id] = capacity;
+    total *= capacity;
+  }
+  return {total, perSlot};
+}
