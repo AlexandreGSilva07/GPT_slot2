@@ -1,0 +1,1 @@
+{"name":"runtime-vibecoder-lab","version":"4.0.0","type":"module","scripts":{"test":"node test_vibe.mjs"}}
