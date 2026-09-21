@@ -85,21 +85,21 @@ function parseRuntimeParameters(text) {
 }
 
 const DISH_PROFILES = Object.freeze({
-  OMELET:       {accept:['egg'], method:['pan'], maxMinutes:20},
+  OMELET:       {accept:['egg'], requireOne:['egg'], method:['pan'], maxMinutes:20},
   SOUP:         {accept:['protein','legume','vegetable','grain'], method:['wet'], maxMinutes:90},
-  PASTA:        {accept:['grain'], method:['boil'], maxMinutes:35},
-  RICE_BOWL:    {accept:['grain','protein','vegetable','legume'], method:['boil','assembly'], maxMinutes:45},
+  PASTA:        {accept:['grain'], requireOne:['grain'], method:['boil'], maxMinutes:35},
+  RICE_BOWL:    {accept:['grain','protein','vegetable','legume'], requireOne:['grain'], method:['boil','assembly'], maxMinutes:45},
   STIR_FRY:     {accept:['protein','vegetable','plant'], method:['pan','grill'], maxMinutes:30},
-  SALAD:        {accept:['leaf','vegetable','legume','protein'], method:['no_cook','assembly'], maxMinutes:20},
-  SANDWICH:     {accept:['protein','vegetable','cheese','assembly'], method:['assembly'], maxMinutes:15},
-  SMOOTHIE:     {accept:['fruit'], method:['blend'], maxMinutes:10},
-  FRUIT_BOWL:   {accept:['fruit'], method:['no_cook','assembly'], maxMinutes:15},
-  COLD_BOWL:    {accept:['grain','protein','vegetable','legume'], method:['assembly'], maxMinutes:25},
+  SALAD:        {accept:['leaf','vegetable','legume','protein'], requireOne:['leaf','legume'], method:['no_cook','assembly'], maxMinutes:20},
+  SANDWICH:     {accept:['protein','vegetable','cheese','assembly'], requireOne:['assembly'], method:['assembly'], maxMinutes:15},
+  SMOOTHIE:     {accept:['fruit'], requireOne:['fruit'], method:['blend'], maxMinutes:10},
+  FRUIT_BOWL:   {accept:['fruit'], requireOne:['fruit'], method:['no_cook','assembly'], maxMinutes:15},
+  COLD_BOWL:    {accept:['grain','protein','vegetable','legume'], requireOne:['grain','legume'], method:['assembly'], maxMinutes:25},
   ROASTED_TRAY: {accept:['protein','vegetable','starch'], method:['oven'], maxMinutes:60},
-  SAVORY_PIE:   {accept:['protein','vegetable','cheese','flour'], method:['oven'], maxMinutes:75},
-  BAKED_PASTA:  {accept:['grain','cheese','protein'], method:['oven'], maxMinutes:60},
-  CAKE:         {accept:['flour','fruit','cocoa'], method:['oven'], maxMinutes:75},
-  BAKED_FRUIT:  {accept:['fruit'], method:['oven'], maxMinutes:40}
+  SAVORY_PIE:   {accept:['protein','vegetable','cheese','flour'], requireOne:['flour'], method:['oven'], maxMinutes:75},
+  BAKED_PASTA:  {accept:['grain','cheese','protein'], requireOne:['grain'], method:['oven'], maxMinutes:60},
+  CAKE:         {accept:['flour','fruit','cocoa'], requireOne:['flour'], method:['oven'], maxMinutes:75},
+  BAKED_FRUIT:  {accept:['fruit'], requireOne:['fruit'], method:['oven'], maxMinutes:40}
 });
 
 function hasConstraint(constraints, id) {
@@ -117,6 +117,9 @@ function chooseDish(ingredients, constraints, timeLimit, explicitDish = null) {
     if (!profile) continue;
 
     if (hasConstraint(constraints, 'NO_OVEN') && dish.tags.includes('oven')) continue;
+    if (profile.requireOne && !ingredients.some(ingredient =>
+      profile.requireOne.some(tag => ingredient.tags.includes(tag))
+    )) continue;
 
     let score = 0;
     for (const ingredient of ingredients) {
