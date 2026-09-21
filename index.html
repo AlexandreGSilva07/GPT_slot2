@@ -1,169 +1,77 @@
 <!doctype html>
-<html lang="pt-BR" data-build="v3.0.0">
+<html lang="pt-BR" data-build="v4.0.0">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Runtime Expert Lab V3: raciocínio procedural com World Model, eventos, escopos e experts materializados em runtime." />
-  <meta name="application-name" content="Runtime Expert Lab V3" />
-  <title>Runtime Expert Lab V3</title>
+  <meta name="description" content="Runtime VibeCoder Lab V4: composição procedural de microcompetências para HTML, JavaScript e CSS puro." />
+  <title>Runtime VibeCoder Lab V4</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <header class="topbar">
     <div>
-      <span class="eyebrow">GPT_SLOT2 · V3.0 WORLD MODEL</span>
-      <h1>Runtime Expert Lab</h1>
+      <span class="eyebrow">GPT_SLOT2 · V4 · VIBECODER</span>
+      <h1>Runtime VibeCoder Lab</h1>
     </div>
     <div class="badges">
-      <span>SEM TRANSFORMER</span>
-      <span>WORLD MODEL</span>
-      <span>EVENTOS + ESCOPOS</span>
-      <span>EXPERT EM RUNTIME</span>
+      <span>HTML</span><span>JAVASCRIPT PURO</span><span>CSS</span><span>SEM LLM EM RUNTIME</span>
     </div>
   </header>
 
   <main class="layout">
-    <section class="panel input-panel">
+    <section class="panel prompt-panel">
       <div class="panel-head">
-        <div>
-          <span class="eyebrow">INPUT</span>
-          <h2>Descreva um problema comercial</h2>
-        </div>
-        <button id="clearBtn" class="ghost">Limpar</button>
+        <div><span class="eyebrow">PROMPT</span><h2>Peça uma alteração no projeto</h2></div>
+        <button id="resetBtn" class="ghost">Resetar</button>
       </div>
-
-      <p class="muted">
-        A V3 transforma o texto em eventos e relações: compras, vendas, taxas, descontos,
-        devoluções, canais, períodos e valores derivados. Dados essenciais desconhecidos
-        permanecem UNKNOWN em vez de serem inventados.
-      </p>
-
-      <textarea id="prompt" spellcheck="false">comprei 120 unidades por 18 cada. vendas: 70 x 32 / 50 x 35. taxa 6% sobre faturamento. fixo 100. lucro liquido?</textarea>
-      <div class="examples" id="examples"></div>
-      <button id="runBtn" class="primary">Construir World Model e resolver</button>
-
+      <p class="muted">A V4 transforma cada pedido em microoperações, testa candidatos de forma preguiçosa e materializa um programa temporário de edição.</p>
+      <textarea id="prompt" spellcheck="false">mude o texto de #titulo-demo para "Meu app"; depois ao clicar em #botao-demo, alterne a classe ativo em #painel-demo</textarea>
+      <div id="examples" class="examples"></div>
+      <button id="runBtn" class="primary">Sintetizar alteração</button>
       <div class="mini-grid">
-        <article><b id="nodeCount">0</b><span>nós no mundo</span></article>
-        <article><b id="motorCount">0</b><span>motores ativados</span></article>
-        <article><b id="stepCount">0</b><span>operações materializadas</span></article>
+        <article><b id="stepCount">0</b><span>microexperts</span></article>
+        <article><b id="candidateCount">0</b><span>candidatos avaliados</span></article>
+        <article><b id="segmentCount">0</b><span>segmentos do prompt</span></article>
       </div>
     </section>
 
-    <section class="panel result-panel">
+    <section class="panel output-panel">
       <div class="panel-head">
-        <div>
-          <span class="eyebrow">OUTPUT</span>
-          <h2>Resposta materializada</h2>
-        </div>
+        <div><span class="eyebrow">PROGRAMA SINTETIZADO</span><h2>Plano + preview</h2></div>
         <span id="status" class="status">aguardando</span>
       </div>
+      <div id="expert" class="expert-box">—</div>
+      <div id="plan" class="steps"></div>
+      <iframe id="preview" title="Preview do projeto" sandbox="allow-scripts"></iframe>
+    </section>
 
-      <div id="answer" class="answer empty">
-        Execute um problema para construir o mundo e materializar um expert temporário.
+    <section class="panel editors-panel">
+      <div class="panel-head"><div><span class="eyebrow">PROJETO</span><h2>HTML + JavaScript + CSS</h2></div></div>
+      <div class="editor-grid">
+        <label><span>HTML</span><textarea id="htmlEditor" spellcheck="false"></textarea></label>
+        <label><span>JavaScript</span><textarea id="jsEditor" spellcheck="false"></textarea></label>
+        <label><span>CSS</span><textarea id="cssEditor" spellcheck="false"></textarea></label>
       </div>
-      <div id="steps" class="steps"></div>
     </section>
 
     <section class="panel trace-panel">
-      <div class="panel-head">
-        <div>
-          <span class="eyebrow">WORLD TRACE</span>
-          <h2>O que a V3 representou antes de calcular</h2>
-        </div>
-      </div>
-
-      <div class="trace-grid">
-        <article>
-          <h3>1 · Texto normalizado</h3>
-          <pre id="normalized">—</pre>
-        </article>
-
-        <article>
-          <h3>2 · Objetivo inferido</h3>
-          <pre id="goalTrace">—</pre>
-          <div id="target" class="target-box">—</div>
-        </article>
-
-        <article>
-          <h3>3 · Nós + Value States</h3>
-          <pre id="worldNodes">—</pre>
-        </article>
-
-        <article>
-          <h3>4 · Relações + escopos</h3>
-          <pre id="worldRelations">—</pre>
-        </article>
-
-        <article>
-          <h3>5 · Issues / Missing</h3>
-          <pre id="worldIssues">—</pre>
-        </article>
-
-        <article>
-          <h3>6 · Expert composto</h3>
-          <div id="expert" class="expert-box">—</div>
-        </article>
-      </div>
+      <div class="panel-head"><div><span class="eyebrow">SEARCH TRACE</span><h2>Fronteira visitada</h2></div></div>
+      <pre id="trace">—</pre>
     </section>
 
     <section class="panel benchmark-panel">
       <div class="benchmark-head">
         <div>
-          <span class="eyebrow">BENCHMARK LAB · V3</span>
-          <h2>Teste de generalização e regressão</h2>
-          <p class="muted">
-            O Benchmark Lab usa o mesmo motor V3 da interface. Ele registra World Model,
-            relações, issues, expert materializado, etapas e resultado por caso.
-          </p>
+          <span class="eyebrow">BENCHMARK INTERNO · 500</span>
+          <h2>HTML + JS + CSS</h2>
+          <p class="muted">500 casos em 10 famílias: texto, atributos, classes, visibilidade, criação/remoção de elementos, eventos, CSS e composições multi-etapa.</p>
         </div>
-        <button id="benchBtn" class="secondary">Rodar Hard6 interno · 1.200 casos</button>
+        <button id="benchBtn" class="secondary">Rodar 500 casos</button>
       </div>
-
-      <div id="benchResult" class="bench-result">
-        Hard6 interno ainda não executado nesta sessão.
-      </div>
-
-      <div class="custom-bench">
-        <div class="custom-bench-copy">
-          <span class="eyebrow">BENCHMARK PERSONALIZADO · JSON</span>
-          <h3>Carregue perguntas em lote</h3>
-          <p class="muted">
-            O gabarito pode verificar status, alvo, valor, entidades escalares compatíveis,
-            contagem de nós por tipo, tipos de issue, motores e número de etapas.
-          </p>
-        </div>
-
-        <div class="upload-row">
-          <label class="file-drop" for="benchmarkFile">
-            <input id="benchmarkFile" type="file" accept=".json,application/json" />
-            <b>Selecionar JSON</b>
-            <span id="benchmarkFileName">Nenhum arquivo selecionado</span>
-          </label>
-          <button id="sampleBtn" class="ghost">Baixar modelo JSON</button>
-          <button id="runCustomBenchBtn" class="secondary" disabled>Rodar benchmark personalizado</button>
-        </div>
-
-        <div id="customBenchStatus" class="bench-result">Aguardando um arquivo JSON.</div>
-
-        <div id="customBenchSummary" class="bench-summary hidden">
-          <article><b id="benchTotal">0</b><span>casos</span></article>
-          <article><b id="benchPassed">0</b><span>aprovados</span></article>
-          <article><b id="benchFailed">0</b><span>falharam</span></article>
-          <article><b id="benchObserved">0</b><span>observacionais</span></article>
-          <article><b id="benchResolved">0</b><span>resolvidos</span></article>
-          <article><b id="benchIncomplete">0</b><span>incompletos</span></article>
-        </div>
-
-        <div id="downloadRow" class="download-row hidden">
-          <button id="downloadJsonBtn" class="secondary">Baixar relatório detalhado JSON</button>
-          <button id="downloadCsvBtn" class="ghost">Baixar resumo CSV</button>
-        </div>
-
-        <div id="customBenchCases" class="bench-cases"></div>
-      </div>
+      <div id="benchResult" class="bench-result">Benchmark ainda não executado nesta sessão.</div>
+      <div id="benchCategories" class="bench-grid"></div>
     </section>
   </main>
-
   <script type="module" src="./app.js"></script>
 </body>
 </html>
