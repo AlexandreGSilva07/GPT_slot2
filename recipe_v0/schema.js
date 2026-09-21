@@ -178,15 +178,19 @@ function lexicalScore(text, terms) {
 
 function conditionMatches(condition, state) {
   const current = state[condition.slot];
-  if (condition.op === 'exists') return current != null;
-  if (condition.op === 'eq') return current === condition.value || current?.id === condition.value;
+  const values = (Array.isArray(current) ? current : [current])
+    .filter(v => v != null)
+    .map(v => v?.id ?? v);
+
+  if (condition.op === 'exists') return values.length > 0;
+  if (condition.op === 'eq') return values.includes(condition.value);
   if (condition.op === 'in') {
-    const value = current?.id ?? current;
-    return arr(condition.value).includes(value);
+    const accepted = arr(condition.value);
+    return values.some(value => accepted.includes(value));
   }
   if (condition.op === 'tag') {
-    const values = Array.isArray(current) ? current : [current];
-    return values.some(v => v?.tags?.includes(condition.value));
+    const rawValues = Array.isArray(current) ? current : [current];
+    return rawValues.some(v => v?.tags?.includes(condition.value));
   }
   return false;
 }
