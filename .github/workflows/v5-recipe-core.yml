@@ -17,3 +17,5 @@ jobs:
         run: npm test
       - name: V5 recipe combinatorial core
         run: npm run test:recipe-v0
+      - name: V5 end-to-end resolver
+        run: npm run test:recipe-resolver
