@@ -13,4 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm test
+      - name: Internal 500 gate
+        run: npm test
+      - name: External Gemini 500 first-shot
+        run: node test_external_firstshot.mjs
