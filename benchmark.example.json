@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 2,
+  "name": "Runtime Expert V3 — exemplo",
+  "description": "Exemplos para validar resultado, estrutura do World Model e recusas seguras.",
+  "cases": [
+    {
+      "id": "multi-sale-profit",
+      "prompt": "comprei 120 unidades por 18 cada. vendas: 70 x 32 / 50 x 35. taxa 6% sobre faturamento. fixo 100. lucro liquido?",
+      "tags": ["v3", "multi-sale", "profit"],
+      "expected": {
+        "status": "resolved",
+        "target": "netProfit",
+        "value": 1490.6,
+        "tolerance": 0.01,
+        "worldCounts": {
+          "PURCHASE": 1,
+          "SALE": 2,
+          "FEE": 1,
+          "FIXED_COST": 1
+        }
+      }
+    },
+    {
+      "id": "three-channels",
+      "prompt": "site: 40 x 55, taxa 4%; marketplace: 60 x 52, taxa 12%; balcao: 20 x 58, taxa 2%. custo por item 24; fixo 300. resultado liquido?",
+      "tags": ["v3", "scope", "channels"],
+      "expected": {
+        "status": "resolved",
+        "target": "netProfit",
+        "value": 2814.4,
+        "tolerance": 0.01,
+        "worldCounts": {
+          "CHANNEL": 3,
+          "SALE": 3,
+          "FEE": 3,
+          "PURCHASE": 1,
+          "FIXED_COST": 1
+        }
+      }
+    },
+    {
+      "id": "derived-remainder",
+      "prompt": "comprei 100 pecas por 10. vendi 30 a 25; mais 20 a 30; o restante saiu a 22. faturamento?",
+      "tags": ["v3", "derived", "reference"],
+      "expected": {
+        "status": "resolved",
+        "target": "revenue",
+        "value": 2450,
+        "tolerance": 0.01,
+        "worldCounts": {
+          "PURCHASE": 1,
+          "SALE": 3
+        }
+      }
+    },
+    {
+      "id": "temporal",
+      "prompt": "antes: 80 x 30 / 40 x 35. agora: 70 x 38 / 60 x 36. quanto mudou o faturamento em %?",
+      "tags": ["v3", "temporal"],
+      "expected": {
+        "status": "resolved",
+        "target": "growthPct",
+        "value": 26.8421052632,
+        "tolerance": 0.001,
+        "worldCounts": {
+          "PERIOD": 2,
+          "SALE": 4
+        }
+      }
+    },
+    {
+      "id": "break-even",
+      "prompt": "preco 45; custo unitario 18; taxa 6%; devolucao 2%; fixo 2400. ponto de equilibrio em unidades?",
+      "tags": ["v3", "break-even"],
+      "expected": {
+        "status": "resolved",
+        "target": "breakEvenUnits",
+        "value": 103,
+        "tolerance": 0
+      }
+    },
+    {
+      "id": "missing-data",
+      "prompt": "vendo por 32 e pago 6% de taxa. qual meu lucro?",
+      "tags": ["v3", "refusal"],
+      "expected": {
+        "status": "incomplete",
+        "target": "netProfit"
+      }
+    },
+    {
+      "id": "out-of-domain",
+      "prompt": "qual a capital da França?",
+      "tags": ["v3", "out-of-domain"],
+      "expected": {
+        "status": "incomplete"
+      }
+    }
+  ]
+}
