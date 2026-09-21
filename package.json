@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node test_vibe.mjs",
-    "test:recipe-v0": "node recipe_v0/test_recipe_v0.mjs"
+    "test:recipe-v0": "node recipe_v0/test_recipe_v0.mjs",
+    "test:recipe-resolver": "node recipe_v0/test_resolver.mjs"
   }
 }
