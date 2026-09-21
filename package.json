@@ -1,1 +1,9 @@
-{"name":"runtime-vibecoder-lab","version":"4.0.0","type":"module","scripts":{"test":"node test_vibe.mjs"}}
+{
+  "name": "runtime-vibecoder-lab",
+  "version": "4.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "node test_vibe.mjs",
+    "test:recipe-v0": "node recipe_v0/test_recipe_v0.mjs"
+  }
+}
