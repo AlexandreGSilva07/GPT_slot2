@@ -49,8 +49,25 @@ function lexicalMentions(text) {
     }
   }
 
+  const raw = [...found.values()]
+    .sort((a,b) => b.words - a.words || a.start - b.start);
+
+  // Prefer the longest semantic span. This prevents "sem leite" from also
+  // activating MILK, and "molho de tomate" from also activating TOMATO.
+  const selected = [];
+  for (const mention of raw) {
+    const a0 = mention.start;
+    const a1 = mention.start + mention.words - 1;
+    const overlaps = selected.some(other => {
+      const b0 = other.start;
+      const b1 = other.start + other.words - 1;
+      return a0 <= b1 && b0 <= a1;
+    });
+    if (!overlaps) selected.push(mention);
+  }
+
   return {
-    mentions:[...found.values()].sort((a,b) => a.start - b.start || b.words - a.words),
+    mentions:selected.sort((a,b) => a.start - b.start || b.words - a.words),
     lookups
   };
 }
